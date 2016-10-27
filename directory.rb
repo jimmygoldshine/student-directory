@@ -13,13 +13,18 @@ def input_students
     cohort = gets.chomp
     cohort = 'Unknown'.to_sym if cohort == ""
     studentsAr << {name: name.to_sym, cohort: cohort.to_sym, height: :tall, gender: :male}
-    puts "Now we have #{studentsAr.count} students"
+    puts "Now we have #{studentsAr.count} #{plural?(studentsAr.count)}"
     # get another name from the user
     name = gets.chomp
   end
   # return the array of students
   return studentsAr
 end
+
+def plural?(n)
+  n == 1 ? "student" : "students"
+end
+
 
 def print_header
   puts "The students of Villains Academy"
