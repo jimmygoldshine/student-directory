@@ -3,7 +3,7 @@ def input_students
   puts "Please enter the name of the student"
   puts "To finish, just hit return twice"
   # create an empty array
-  students = []
+  studentsAr = []
   #get the first name
   name = gets.chomp
   #while the name is not empty, repeat this code
@@ -12,14 +12,13 @@ def input_students
     puts "Please enter #{name}'s cohort"
     cohort = gets.chomp
     cohort = 'Unknown'.to_sym if cohort == ""
-    students << {name: name.to_sym, cohort: cohort.to_sym, height: :tall, gender: :male}
-    puts "Now we have #{students.count} students"
+    studentsAr << {name: name.to_sym, cohort: cohort.to_sym, height: :tall, gender: :male}
+    puts "Now we have #{studentsAr.count} students"
     # get another name from the user
     name = gets.chomp
   end
-
   # return the array of students
-  print students
+  return studentsAr
 end
 
 def print_header
@@ -27,10 +26,12 @@ def print_header
   puts "-----------"
 end
 
-def print(students)
+def output(students, cohort)
+  studentsInCohort = []
   students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort) (Height: #{student[:height]}) (Gender: #{student[:gender]})".center(100)
+    studentsInCohort << student[:name] if student[:cohort] == cohort.to_sym
   end
+  puts studentsInCohort
 end
 
 def print_footer(students)
@@ -38,6 +39,7 @@ def print_footer(students)
 end
 #nothing happens until we call the methods
 students = input_students
-print_header
+output(students, "November")
+#print_header
 #print(students)
-print_footer(students)
+#print_footer(students)
