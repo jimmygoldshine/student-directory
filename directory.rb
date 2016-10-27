@@ -23,9 +23,11 @@ def print_header
   puts "-----------"
 end
 
-def print(students)
-  students.each_with_index do |student, index|
-    puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+def print(students, l)
+  students.each do |student|
+    if student[:name][0].downcase == l.downcase
+      puts "#{student[:name]} (#{student[:cohort]} cohort)"
+    end
   end
 end
 
@@ -35,5 +37,5 @@ end
 #nothing happens until we call the methods
 students = input_students
 print_header
-print(students)
+print(students, 's')
 print_footer(students)
