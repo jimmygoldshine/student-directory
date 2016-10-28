@@ -1,3 +1,28 @@
+def interactive_menu
+  students = []
+  loop do
+    # 1. print the menu and ask the user what to do
+    puts "1. Input the stuents"
+    puts "2. Show the students"
+    puts "9. Exit"
+    # 2. read the input and save it into the variable
+    selection = gets.chomp
+    # 3. do what the user has asked
+    case selection
+    when "1"
+      students = input_students
+    when "2"
+      print_header
+      print(students)
+      print_footer(students)
+    when "9"
+      exit #program terminates
+    else
+      puts "I dont know what you meant, try again"
+    end
+  end
+end
+
 
 def input_students
   puts "Please enter the name of the student"
@@ -28,6 +53,7 @@ def plural?(n)
 end
 
 
+
 def print_header
   puts "The students of Villains Academy"
   puts "-----------"
@@ -49,8 +75,5 @@ def print_footer(students)
   puts "Overall, we have #{students.count} great students"
 end
 #nothing happens until we call the methods
-students = input_students
-output(students, "November")
-#print_header
-#print(students)
-#print_footer(students)
+
+interactive_menu
