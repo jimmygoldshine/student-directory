@@ -18,7 +18,9 @@ def input_students
     name = gets.chomp
   end
   # return the array of students
-  return studentsAr
+  if !studentsAr.empty?
+    return studentsAr
+  end
 end
 
 def plural?(n)
@@ -33,8 +35,12 @@ end
 
 def output(students, cohort)
   studentsInCohort = []
-  students.each do |student|
-    studentsInCohort << student[:name] if student[:cohort] == cohort.to_sym
+  if !students
+    return
+  else
+    students.each do |student|
+      studentsInCohort << student[:name] if student[:cohort] == cohort.to_sym
+    end
   end
   puts studentsInCohort
 end
