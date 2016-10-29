@@ -3,7 +3,7 @@
 def try_load_students
   filename = ARGV.first #first argument from the command line
   if filename == nil #if no file given in CL, default load students.csv
-    load_students("students.csv")
+    default_load_students
     puts "Default Load: Loaded #{@students.count} #{plural?(@students.count)} from students.csv"
   elsif File.exists?(filename) #if it exists
     load_students(filename)
@@ -93,8 +93,9 @@ end
 #nothing happens until we call the methods
 
 def save_students
+  puts "Save students to: "
   #open the file to writing
-  file = File.open("students.csv", "w")
+  file = File.open(gets.chomp, "w")
   #iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
@@ -104,11 +105,27 @@ def save_students
   file.close
 end
 
-def load_students(filename = "students.csv")
-  file = File.open("students.csv", "r")
+def default_load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     add_student_to_working_list(name, cohort)
+  end
+  file.close
+end
+
+def load_students(filename = "students.csv")
+  puts "Load students from: "
+  file = gets.chomp
+  if !File.exists?(file)
+    puts "File not found"
+    return
+  else
+    file = File.open(file, "r")
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(",")
+      add_student_to_working_list(name, cohort)
+    end
   end
   file.close
 end
