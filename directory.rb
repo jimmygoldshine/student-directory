@@ -2,12 +2,13 @@
 
 def try_load_students
   filename = ARGV.first #first argument from the command line
-  return if filename.nil? #get out of the method if it isn't given
-  if File.exists?(filename) #if it exists
+  if filename == nil #if no file given in CL, default load students.csv
+    load_students("students.csv")
+    puts "Default Load: Loaded #{@students.count} #{plural?(@students.count)} from students.csv"
+  elsif File.exists?(filename) #if it exists
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
   else
-    puts "Sorry, #{filename} doesn't exist."
     exit #quit the program
   end
 end
@@ -38,12 +39,16 @@ def process(selection)
   case selection
   when "1"
     input_students
+    puts "Success. Student(s) added"
   when "2"
     show_students
+    puts "Success. Student(s) showed"
   when "3"
     save_students
+    puts "Success. Student(s) saved"
   when "4"
     load_students
+    puts "Success. Student(s) loaded"
   when "9"
     exit #program terminates
   else
