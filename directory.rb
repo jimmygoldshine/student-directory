@@ -95,23 +95,22 @@ end
 def save_students
   puts "Save students to: "
   #open the file to writing
-  file = File.open(gets.chomp, "w")
+  filename = gets.chomp
+  File.open(filename, "w") do |file|
   #iterate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
   end
-  file.close
 end
 
 def default_load_students(filename = "students.csv")
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
+  File.open(filename, "r").readlines.each do |file|
     name, cohort = line.chomp.split(",")
     add_student_to_working_list(name, cohort)
   end
-  file.close
 end
 
 def load_students(filename = "students.csv")
@@ -121,13 +120,11 @@ def load_students(filename = "students.csv")
     puts "File not found"
     return
   else
-    file = File.open(file, "r")
-    file.readlines.each do |line|
+    File.open(file, "r").readlines.each do |file|
       name, cohort = line.chomp.split(",")
       add_student_to_working_list(name, cohort)
     end
   end
-  file.close
 end
 
 def add_student_to_working_list(name, cohort = :november)
